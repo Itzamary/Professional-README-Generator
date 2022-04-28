@@ -1,4 +1,5 @@
 // TODO: Include packages needed for this application
+const fs = require('fs');
 const generatePage = require('./utils/generateMarkdown.js');
 const inquirer = require('inquirer');
 
@@ -18,7 +19,7 @@ const questions = [
     },
     {
         type: 'input',
-        name: 'email'
+        name: 'email',
         message:'Please enter your username. (Required)',
         validate: emailInfo => {
             if(emailInfo){
@@ -66,7 +67,7 @@ const questions = [
     },
     {
         type: 'input',
-        name: 'howToUse'
+        name: 'howToUse',
         message: 'How can this project be used',
         validate: usageInfo => {
             if (usageInfo) {
@@ -121,7 +122,23 @@ const questions = [
 ];
 
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
+function writeToFile(data) {
+    return new Promise((resolve, reject) => {
+        fs.writeFile('./dist/index.html', data, err => {
+            // if thers an error, reject the promise and send thr error to the Promises catch method
+            if(err) {
+                reject (err);
+                return;
+            }
+
+            // if it went well, resolve the promise and send the successfull data to the .then method.
+            resolve({
+                ok: true,
+                message: 'file created!'
+            });
+        });
+    });
+};
 
 // TODO: Create a function to initialize app
 function init() {}
