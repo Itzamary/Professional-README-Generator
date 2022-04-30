@@ -2,14 +2,17 @@
 const fs = require('fs');
 const generatePage = require('./utils/generateMarkdown.js');
 const inquirer = require('inquirer');
+const generateMarkdown = require('./utils/generateMarkdown.js');
 
 // TODO: Create an array of questions for user input
-const questions = [
+const questions = () => {
+    return inquirer.prompt([
     {
         type: 'input',
-        name: 'githubLink',
+        name: 'github',
         message: 'Enter your github username! (Required)',
         validate: userName => {
+            console.log(userName);
             if(userName){
                 return true;
             }else {
@@ -20,7 +23,7 @@ const questions = [
     {
         type: 'input',
         name: 'email',
-        message:'Please enter your username. (Required)',
+        message:'Please enter your email address. (Required)',
         validate: emailInfo => {
             if(emailInfo){
                 return true;
@@ -80,11 +83,11 @@ const questions = [
     {
         type: 'list',
         name: 'license',
-        message: 'Which of the following licences would you like to use? (required)',
+        message: 'Which of the following licences would you like to use?',
         choices: [
             'MIT',
+            'Apache License, version 2.0',
             'Apache',
-            'Apache 2',
             'GPL'
         ]
     },
@@ -119,12 +122,13 @@ const questions = [
         }
     },
 
-];
+]);
+}
 
 // TODO: Create a function to write README file
 function writeToFile(data) {
     return new Promise((resolve, reject) => {
-        fs.writeFile('./dist/index.html', data, err => {
+        fs.writeFile('./dist/README.md', data, err => {
             // if thers an error, reject the promise and send thr error to the Promises catch method
             if(err) {
                 reject (err);
@@ -141,7 +145,22 @@ function writeToFile(data) {
 };
 
 // TODO: Create a function to initialize app
-function init() {}
+function init() {
+    questions()
+    .then(qAnswers => {
+        console.log(qAnswers);
+        return qAnswers;
+    })
+    .then(data => {
+        return generateMarkdown(data);
+    })
+    .then(fileInfo => {
+        return writeToFile(fileInfo);
+    })
+    .catch(err => {
+        console.log(err);
+    })
+}
 
 // Function call to initialize app
 init();
