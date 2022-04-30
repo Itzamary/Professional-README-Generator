@@ -3,6 +3,7 @@ const fs = require('fs');
 const generatePage = require('./utils/generateMarkdown.js');
 const inquirer = require('inquirer');
 const generateMarkdown = require('./utils/generateMarkdown.js');
+const { resolve } = require('path');
 
 // TODO: Create an array of questions for user input
 const questions = () => {
@@ -144,6 +145,20 @@ function writeToFile(data) {
     });
 };
 
+const copyFile = () => {
+    return new Promise((resolve, reject) => {
+        fs.copyFile('./dist/README.md', '../README.md', err => {
+            if (err) {
+                return;
+            }
+            resolve({
+                ok: true,
+                message: 'readme coppied'
+            });
+        });
+    });
+};
+
 // TODO: Create a function to initialize app
 function init() {
     questions()
@@ -156,6 +171,9 @@ function init() {
     })
     .then(fileInfo => {
         return writeToFile(fileInfo);
+    })
+    .then(() => {
+        return copyFile();
     })
     .catch(err => {
         console.log(err);

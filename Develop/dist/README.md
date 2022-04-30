@@ -25,14 +25,13 @@
 
 ## License
   
-  
-MIT
+
 
 For more information about the specified license,  please click on the following link.
 
 
   
-  
+
   [MIT](https://www.mit.edu/~amini/LICENSE.md)
 
 
@@ -41,7 +40,7 @@ For more information about the specified license,  please click on the following
   If you would like to contribute please contact me at the following email or github.
 
   * GitHub: [Itzamary](https://github.com/Itzamary)
-  * E-mail: itzamary1jimenez@gmail.com;
+  * E-mail: itzamary1jimenez@gmail.com';
     
 
   ## Test
@@ -51,5 +50,5 @@ For more information about the specified license,  please click on the following
   If you would like to contact me for any questions or comments contact at the following links.
 
   * GitHub: [Itzamary](https://github.com/Itzamary),
-  * E-mail: itzamary1jimenez@gmail.com
+  * E-mail: itzamary1jimenez@gmail.com'
   
